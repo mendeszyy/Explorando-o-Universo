@@ -3,42 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Universo em Movimento 🌌 - Jogo da Velocidade Avançado</title>
+  <title>Universo em Movimento</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="universe">
-    <header>
-      <h1>Universo em Movimento 🌌</h1>
-      <p>Jogo da Velocidade: Clique no planeta correto o mais rápido que puder!</p>
-    </header>
 
-    <main>
-      <section id="start-screen" class="screen active">
-        <button id="start-btn">Iniciar Jogo</button>
-      </section>
+  <header>
+    <h1>Universo em Movimento</h1>
+    <p>Explore os planetas do nosso sistema solar e descubra curiosidades incríveis.</p>
+  </header>
 
-      <section id="game-screen" class="screen">
-        <div id="planets-container" aria-label="Lista de planetas"></div>
-        <div id="game-info">
-          <p id="challenge" aria-live="polite"></p>
-          <p>Pontuação: <span id="score">0</span></p>
-          <p>Tempo restante: <span id="timer">10</span>s</p>
-          <p id="feedback" aria-live="assertive"></p>
-        </div>
-      </section>
+  <main id="main-content">
 
-      <section id="end-screen" class="screen">
-        <h2>Fim de Jogo!</h2>
-        <p>Sua pontuação final foi: <span id="final-score">0</span></p>
-        <button id="restart-btn">Jogar Novamente</button>
-      </section>
-    </main>
+    <section id="universe">
+      <!-- Planetas serão criados aqui via JS -->
+    </section>
 
-    <footer>
-      Feito por Paola Valentina Silva Mendes
-    </footer>
-  </div>
+    <section id="info-panel">
+      <h2>Curiosidade</h2>
+      <p id="planet-info">Clique em um planeta para saber mais.</p>
+    </section>
+
+    <section id="game-section">
+      <h2>Desafio: Clique no planeta certo!</h2>
+      <div id="game-container">
+        <div id="challenge-text">Clique em "Iniciar Jogo" para começar.</div>
+        <div id="planets-game"></div>
+        <div id="game-feedback"></div>
+        <div id="game-timer">Tempo: 0</div>
+        <button id="start-game-btn">Iniciar Jogo</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2025 Paola Valentina Silva Mendes</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>

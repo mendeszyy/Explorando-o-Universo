@@ -1,122 +1,149 @@
-/* Reset básico */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto&display=swap');
+
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
-body, html {
-  height: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: white;
-  background: #000;
-  overflow-x: hidden;
-  position: relative;
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at center, #000 0%, #01010f 80%);
+  color: #e0e0e0;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 20px;
 }
 
-/* Fundo das estrelas */
-#particles-js {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-}
-
-/* Conteúdo */
-header, main, footer {
-  position: relative;
-  z-index: 10;
+#universe {
   max-width: 900px;
-  margin: 1.5rem auto;
-  padding: 0 1rem;
+  width: 100%;
   text-align: center;
+  background: rgba(10, 10, 30, 0.85);
+  border-radius: 15px;
+  padding: 30px 20px 40px;
+  box-shadow: 0 0 30px #2196f3;
+  user-select: none;
 }
 
 header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  text-shadow: 0 0 8px #00f6ff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3rem;
+  color: #00c6ff;
+  text-shadow: 0 0 10px #00c6ff;
+  margin-bottom: 5px;
 }
 
 header p {
   font-size: 1.2rem;
-  margin-bottom: 2rem;
-  font-weight: 500;
-  color: #a0e0ff;
+  margin-bottom: 25px;
+  color: #b0d7ff;
+}
+
+.screen {
+  display: none;
+  animation: fadeIn 0.7s ease forwards;
+}
+
+.screen.active {
+  display: block;
+}
+
+button {
+  background: #00c6ff;
+  border: none;
+  border-radius: 12px;
+  color: #001f33;
+  font-weight: 700;
+  font-size: 1.3rem;
+  padding: 15px 40px;
+  cursor: pointer;
+  box-shadow: 0 0 15px #00c6ff;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+button:hover, button:focus {
+  background: #0099cc;
+  outline: none;
 }
 
 #planets-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 3rem;
+  gap: 18px;
+  margin-bottom: 25px;
 }
 
 .planet {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  cursor: pointer;
-  position: relative;
-  box-shadow: 0 0 15px rgba(255,255,255,0.2);
-  transition: transform 0.3s, box-shadow 0.3s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
+  font-weight: 700;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 10px #222 inset;
+  font-size: 0.9rem;
   text-shadow: 0 0 5px black;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
 }
 
 .planet:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0 30px #00e0ff;
+  transform: scale(1.15);
+  box-shadow: 0 0 15px #00c6ff, 0 0 25px #00c6ff;
+  z-index: 10;
 }
 
-/* Cores aproximadas dos planetas */
-.planet.mercurio { background: #a7a7a7; }
-.planet.venus { background: #d4af37; }
-.planet.terra { background: #2b65ec; }
-.planet.marte { background: #e14d4d; }
-.planet.jupiter { background: #e79c4f; }
-.planet.saturno { background: #e4d182; }
-.planet.urano { background: #7fe0ff; }
-.planet.netuno { background: #305f96; }
-
-#curiosities {
-  background: rgba(0,0,0,0.5);
-  border-radius: 12px;
-  padding: 1rem 2rem;
-  margin-bottom: 3rem;
-  box-shadow: 0 0 20px #00aaff;
-}
-
-#curiosities h2 {
-  margin-bottom: 1rem;
-  font-size: 1.8rem;
-  text-shadow: 0 0 6px #00ccff;
-}
-
-#curiosity-text {
+#game-info p {
+  margin: 8px 0;
   font-size: 1.2rem;
-  line-height: 1.4;
 }
 
-#games {
-  background: rgba(0,0,0,0.3);
-  padding: 1rem 2rem;
-  border-radius: 12px;
-  box-shadow: 0 0 12px #0ff;
+#challenge {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffcc00;
+  text-shadow: 0 0 10px #ffaa00;
+  min-height: 2.5em;
 }
 
-#games h2 {
-  margin-bottom: 0.8rem;
+#feedback {
+  min-height: 1.5em;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-top: 10px;
 }
 
 footer {
-  margin: 3rem auto 1rem;
+  margin-top: 40px;
   font-size: 0.9rem;
-  color: #777;
-  text-align: center;
+  color: #444;
+}
+
+/* Planets Colors */
+.planet[data-name="Mercúrio"] { background: gray; }
+.planet[data-name="Vênus"] { background: goldenrod; }
+.planet[data-name="Terra"] { background: blue; }
+.planet[data-name="Marte"] { background: red; }
+.planet[data-name="Júpiter"] { background: orange; }
+.planet[data-name="Saturno"] { background: khaki; color: black; }
+.planet[data-name="Urano"] { background: lightblue; color: black; }
+.planet[data-name="Netuno"] { background: darkblue; }
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@media (max-width: 600px) {
+  .planet {
+    width: 60px;
+    height: 60px;
+    font-size: 0.75rem;
+  }
 }

@@ -1,48 +1,123 @@
-// Inicia o fundo de estrelas animadas via particles.js
-particlesJS('particles-js', {
-  particles: {
-    number: { value: 120 },
-    color: { value: '#ffffff' },
-    shape: { type: 'circle' },
-    opacity: { value: 0.8 },
-    size: { value: 2 },
-    move: { enable: true, speed: 0.4 },
-    line_linked: { enable: false }
-  },
-  interactivity: {
-    events: {
-      onhover: { enable: false },
-      onclick: { enable: false }
-    }
-  }
-});
-
-// Planetas com cores, nomes e curiosidades
 const planets = [
-  { name: "Mercúrio", className: "mercurio", info: "Planeta mais próximo do Sol e o menor do sistema solar." },
-  { name: "Vênus", className: "venus", info: "Chamado de 'estrela d'alva', tem temperaturas altíssimas." },
-  { name: "Terra", className: "terra", info: "Nosso lar, o único planeta conhecido com vida." },
-  { name: "Marte", className: "marte", info: "Conhecido como planeta vermelho, pode ter abrigado água." },
-  { name: "Júpiter", className: "jupiter", info: "Maior planeta do sistema solar, com uma grande mancha vermelha." },
-  { name: "Saturno", className: "saturno", info: "Famoso por seus belos anéis." },
-  { name: "Urano", className: "urano", info: "Planeta que gira de lado e tem cor azul-esverdeada." },
-  { name: "Netuno", className: "netuno", info: "O mais distante do Sol, com ventos fortíssimos." }
+  { name: "Mercúrio", color: "gray" },
+  { name: "Vênus", color: "goldenrod" },
+  { name: "Terra", color: "blue" },
+  { name: "Marte", color: "red" },
+  { name: "Júpiter", color: "orange" },
+  { name: "Saturno", color: "khaki" },
+  { name: "Urano", color: "lightblue" },
+  { name: "Netuno", color: "darkblue" }
 ];
 
-// Referências DOM
-const container = document.getElementById('planets-container');
-const curiosityText = document.getElementById('curiosity-text');
+const startScreen = document.getElementById('start-screen');
+const gameScreen = document.getElementById('game-screen');
+const endScreen = document.getElementById('end-screen');
 
-// Criar planetas no container
-planets.forEach(planet => {
-  const div = document.createElement('div');
-  div.classList.add('planet', planet.className);
-  div.textContent = planet.name;
-  div.title = planet.name; // acessibilidade
+const startBtn = document.getElementById('start-btn');
+const restartBtn = document.getElementById('restart-btn');
 
-  div.addEventListener('click', () => {
-    curiosityText.textContent = planet.info;
+const planetsContainer = document.getElementById('planets-container');
+const challengeEl = document.getElementById('challenge');
+const scoreEl = document.getElementById('score');
+const feedbackEl = document.getElementById('feedback');
+const timerEl = document.getElementById('timer');
+const finalScoreEl = document.getElementById('final-score');
+
+let score = 0;
+let currentPlanet = null;
+let allowClick = false;
+let timeLeft = 10;
+let timerId = null;
+let level = 1;
+
+function createPlanets() {
+  planetsContainer.innerHTML = '';
+  planets.forEach(planet => {
+    const div = document.createElement('div');
+    div.classList.add('planet');
+    div.dataset.name = planet.name;
+    div.textContent = planet.name;
+    div.style.backgroundColor = planet.color;
+    planetsContainer.appendChild(div);
+
+    div.addEventListener('click', () => {
+      if (!allowClick) return;
+      if (div.dataset.name === currentPlanet.name) {
+        score++;
+        feedbackEl.textContent = '✔ Acertou!';
+        feedbackEl.style.color = '#00ff00';
+        scoreEl.textContent = score;
+        nextChallenge();
+      } else {
+        feedbackEl.textContent = '❌ Errou! Tente novamente.';
+        feedbackEl.style.color = '#ff4444';
+      }
+    });
   });
+}
 
-  container.appendChild(div);
+function startTimer() {
+  timeLeft = Math.max(3, 10 - Math.floor(score / 5)); // tempo diminui conforme pontuação (mínimo 3s)
+  timerEl.textContent = timeLeft;
+  allowClick = true;
+
+  timerId = setInterval(() => {
+    timeLeft--;
+    timerEl.textContent = timeLeft;
+    if (timeLeft <= 0) {
+      clearInterval(timerId);
+      endGame();
+    }
+  }, 1000);
+}
+
+function nextChallenge() {
+  clearInterval(timerId);
+  allowClick = false;
+  feedbackEl.textContent = '';
+
+  const randomIndex = Math.floor(Math.random() * planets.length);
+  currentPlanet = planets[randomIndex];
+
+  const showByName = Math.random() > 0.5;
+
+  if (showByName) {
+    challengeEl.textContent = `Clique no planeta: ${currentPlanet.name}`;
+  } else {
+    challengeEl.textContent = `Clique no planeta com a cor: ${currentPlanet.color}`;
+  }
+
+  startTimer();
+}
+
+function startGame() {
+  score = 0;
+  scoreEl.textContent = score;
+  feedbackEl.textContent = '';
+  startScreen.classList.remove('active');
+  endScreen.classList.remove('active');
+  gameScreen.classList.add('active');
+  createPlanets();
+  nextChallenge();
+}
+
+function endGame() {
+  allowClick = false;
+  feedbackEl.textContent = '⏰ Tempo esgotado!';
+  finalScoreEl.textContent = score;
+  gameScreen.classList.remove('active');
+  endScreen.classList.add('active');
+}
+
+startBtn.addEventListener('click', startGame);
+restartBtn.addEventListener('click', startGame);
+
+// Optional: Press spacebar to start/restart game
+document.body.addEventListener('keydown', (e) => {
+  if (e.code === 'Space') {
+    e.preventDefault();
+    if (startScreen.classList.contains('active') || endScreen.classList.contains('active')) {
+      startGame();
+    }
+  }
 });

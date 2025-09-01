@@ -3,36 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Universo em Movimento 🌌</title>
+  <title>Universo em Movimento 🌌 - Jogo da Velocidade Avançado</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="particles-js"></div>
+  <div id="universe">
+    <header>
+      <h1>Universo em Movimento 🌌</h1>
+      <p>Jogo da Velocidade: Clique no planeta correto o mais rápido que puder!</p>
+    </header>
 
-  <header>
-    <h1>🌌 Universo em Movimento 🌌</h1>
-    <p>Descubra curiosidades dos planetas do Sistema Solar. Clique nos planetas para saber mais!</p>
-  </header>
+    <main>
+      <section id="start-screen" class="screen active">
+        <button id="start-btn">Iniciar Jogo</button>
+      </section>
 
-  <main>
-    <section id="planets-container"></section>
+      <section id="game-screen" class="screen">
+        <div id="planets-container" aria-label="Lista de planetas"></div>
+        <div id="game-info">
+          <p id="challenge" aria-live="polite"></p>
+          <p>Pontuação: <span id="score">0</span></p>
+          <p>Tempo restante: <span id="timer">10</span>s</p>
+          <p id="feedback" aria-live="assertive"></p>
+        </div>
+      </section>
 
-    <section id="curiosities">
-      <h2>Curiosidade</h2>
-      <div id="curiosity-text">Clique em um planeta para ver curiosidades aqui.</div>
-    </section>
+      <section id="end-screen" class="screen">
+        <h2>Fim de Jogo!</h2>
+        <p>Sua pontuação final foi: <span id="final-score">0</span></p>
+        <button id="restart-btn">Jogar Novamente</button>
+      </section>
+    </main>
 
-    <section id="games">
-      <h2>Jogos</h2>
-      <p>Aqui vão os jogos interativos sobre planetas! (Em breve)</p>
-    </section>
-  </main>
+    <footer>
+      Feito por Paola Valentina Silva Mendes
+    </footer>
+  </div>
 
-  <footer>
-    <p>Feito por você! 🌟</p>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
+
